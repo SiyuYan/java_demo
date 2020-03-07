@@ -9,7 +9,6 @@ import java.io.IOException;
 
 public class HttpClient {
 
-    private static HttpRequestFactory requestFactory;
 
     public static String get(String url) {
         if (Strings.isNullOrEmpty(url)) {
@@ -20,7 +19,7 @@ public class HttpClient {
             return null;
         }
         try {
-            return requestFactory
+            return new NetHttpTransport().createRequestFactory()
                     .buildGetRequest(new GenericUrl(url))
                     .execute()
                     .parseAsString();
@@ -28,13 +27,6 @@ public class HttpClient {
             System.out.println("Please check the url!");
             return null;
         }
-    }
-
-    public HttpRequestFactory getRequestFactory() {
-        if (requestFactory == null) {
-            requestFactory = new NetHttpTransport().createRequestFactory();
-        }
-        return requestFactory;
     }
 
 }
