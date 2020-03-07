@@ -6,8 +6,10 @@ import static org.junit.Assert.*;
 
 public class HttpClientTest {
 
+
     @Test
     public void shouldGetCorrectResultWhenUrlValid() {
+
         String result = HttpClient.get("https://reqres.in/api/users/3");
         assertNotNull(result);
     }
