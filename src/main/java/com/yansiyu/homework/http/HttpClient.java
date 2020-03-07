@@ -3,6 +3,7 @@ package com.yansiyu.homework.http;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.util.Strings;
 
 import java.io.IOException;
 
@@ -11,6 +12,13 @@ public class HttpClient {
     private static HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
 
     public static String get(String url) {
+        if (Strings.isNullOrEmpty(url)) {
+            return null;
+        }
+
+        if (!UrlChecker.isValid(url)) {
+            return null;
+        }
         try {
             return requestFactory
                     .buildGetRequest(new GenericUrl(url))
