@@ -30,7 +30,7 @@ public class UrlCompareTask implements Callable<HashMap<Integer, Boolean>> {
         return url1;
     }
 
-    public void setUrl1(String url1) {
+    void setUrl1(String url1) {
         this.url1 = url1;
     }
 
@@ -38,15 +38,15 @@ public class UrlCompareTask implements Callable<HashMap<Integer, Boolean>> {
         return url2;
     }
 
-    public void setUrl2(String url2) {
+    void setUrl2(String url2) {
         this.url2 = url2;
     }
 
-    public void setJsonComparator(JsonComparator jsonComparator) {
+    void setJsonComparator(JsonComparator jsonComparator) {
         this.jsonComparator = jsonComparator;
     }
 
-    public JsonComparator getJsonComparator() {
+    private JsonComparator getJsonComparator() {
         if (jsonComparator == null) {
             jsonComparator = new JsonComparator();
         }

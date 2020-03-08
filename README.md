@@ -1,4 +1,13 @@
-# Architecture description
+## Instruction 
+- For unit test :`mvn test`
+- For api test :`mvn integration-test`
+
+## Test cases
+- file1 and file2 match normal cases with different urls inside
+- file3 match special case which no url inside
+- file4 and file5 match the case which thousands of url inside
+
+## Architecture description
 
 ### We are trying to compare the json response pair of urls simultaneously.
 
@@ -24,4 +33,7 @@ There some key points we need to solve from technically.
   - utils (all the utility package)
     - FileUtils (used to handle File related functions)
     
-### TODO: test document need to add
+## Test file folder description
+
+- api folder contains all the integration(api) test suites
+- com folder contains all the unit test suites

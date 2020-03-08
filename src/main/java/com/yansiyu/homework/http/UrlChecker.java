@@ -4,16 +4,14 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-public class UrlChecker {
+class UrlChecker {
 
-    public static boolean isValid(String url) {
+    static boolean isValid(String url) {
         try {
             URL obj = new URL(url);
             obj.toURI();
             return true;
-        } catch (MalformedURLException e) {
-            return false;
-        } catch (URISyntaxException e) {
+        } catch (MalformedURLException | URISyntaxException e) {
             return false;
         }
     }

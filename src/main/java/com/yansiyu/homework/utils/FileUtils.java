@@ -9,9 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * Created by siyu.yan on 2020/3/7.
- */
 public class FileUtils {
 
     public static Map<Integer, String> readFile(String fileName) {

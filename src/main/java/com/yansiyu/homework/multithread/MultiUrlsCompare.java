@@ -1,13 +1,12 @@
 package com.yansiyu.homework.multithread;
 
-import com.yansiyu.homework.utils.FileUtils;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -19,7 +18,7 @@ public class MultiUrlsCompare {
         executorService = Executors.newWorkStealingPool(10);
     }
 
-    public List<Map<Integer, Boolean>> compareUrls(
+    public List<Future<HashMap<Integer, Boolean>>> compareUrls(
             Map<Integer, String> urls1,
             Map<Integer, String> urls2) {
 
@@ -39,6 +38,18 @@ public class MultiUrlsCompare {
         return submitCompareTasks(tasks);
     }
 
+    public List<HashMap<Integer, Boolean>> getResults(List<Future<HashMap<Integer, Boolean>>> tasks) {
+        return tasks.stream()
+                .map(future -> {
+                    try {
+                        return future.get();
+                    } catch (Exception e) {
+                        throw new IllegalStateException(e);
+                    }
+                })
+                .collect(Collectors.toList());
+    }
+
     private List<UrlCompareTask> generateCompareTasks(Map<Integer, String> file1,
                                                       Map<Integer, String> file2,
                                                       int urlLength) {
@@ -54,20 +65,10 @@ public class MultiUrlsCompare {
         return new UrlCompareTask(index, url1, url2);
     }
 
-
-    private List<Map<Integer, Boolean>> submitCompareTasks(List<UrlCompareTask> tasks) {
+    private List<Future<HashMap<Integer, Boolean>>> submitCompareTasks(List<UrlCompareTask> tasks) {
         try {
             return executorService
-                    .invokeAll(tasks, 10, TimeUnit.MINUTES)
-                    .stream()
-                    .map(future -> {
-                        try {
-                            return future.get();
-                        } catch (Exception e) {
-                            throw new IllegalStateException(e);
-                        }
-                    })
-                    .collect(Collectors.toList());
+                    .invokeAll(tasks, 10, TimeUnit.MINUTES);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
