@@ -1,4 +1,4 @@
-package com.yansiyu.homework.comparator;
+package com.yansiyu.homework.multithread;
 
 import com.yansiyu.homework.utils.FileUtils;
 
@@ -10,10 +10,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-public class MultiThreadUrlComparator {
+public class MultiUrlsCompare {
+
+    private ExecutorService executorService;
 
 
-    public void compareWholeFile(String fileName1, String fileName2) {
+    public void compareWithFileNames(String fileName1, String fileName2) {
         Map<Integer, String> file1 = FileUtils.readFile(fileName1);
         Map<Integer, String> file2 = FileUtils.readFile(fileName2);
 
@@ -25,13 +27,15 @@ public class MultiThreadUrlComparator {
             System.out.println("File size are different, will compare part of them!");
         }
 
-        compareUrls(file1, file2);
+        compare(file1, file2);
     }
 
-    private List<Map<Integer, Boolean>> compareUrls(Map<Integer, String> file1, Map<Integer, String> file2) {
+    private List<Map<Integer, Boolean>> compare(Map<Integer, String> file1, Map<Integer, String> file2) {
         int urlLength = Math.min(file1.size(), file2.size());
 
-        ExecutorService executorService = Executors.newWorkStealingPool(10);
+        if (executorService == null) {
+            executorService = Executors.newWorkStealingPool(10);
+        }
 
         List<UrlCompareTask> tasks = new ArrayList<>();
 

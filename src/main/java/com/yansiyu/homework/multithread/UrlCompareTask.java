@@ -1,6 +1,7 @@
-package com.yansiyu.homework.comparator;
+package com.yansiyu.homework.multithread;
 
 import com.google.api.client.util.Strings;
+import com.yansiyu.homework.comparator.JsonComparator;
 import com.yansiyu.homework.http.HttpClient;
 
 import java.util.HashMap;
@@ -8,7 +9,7 @@ import java.util.concurrent.Callable;
 
 public class UrlCompareTask implements Callable<HashMap<Integer, Boolean>> {
 
-    private int index;
+    private int index = 0;
 
     private String url1;
 
@@ -25,12 +26,38 @@ public class UrlCompareTask implements Callable<HashMap<Integer, Boolean>> {
         this.url2 = url2;
     }
 
-    @Override
-    public HashMap<Integer, Boolean> call() throws Exception {
-        HashMap<Integer, Boolean> result = new HashMap<>();
+    public String getUrl1() {
+        return url1;
+    }
+
+    public void setUrl1(String url1) {
+        this.url1 = url1;
+    }
+
+    public String getUrl2() {
+        return url2;
+    }
+
+    public void setUrl2(String url2) {
+        this.url2 = url2;
+    }
+
+    public void setJsonComparator(JsonComparator jsonComparator) {
+        this.jsonComparator = jsonComparator;
+    }
+
+    public JsonComparator getJsonComparator() {
         if (jsonComparator == null) {
             jsonComparator = new JsonComparator();
         }
+        return jsonComparator;
+    }
+
+    @Override
+    public HashMap<Integer, Boolean> call() throws Exception {
+        HashMap<Integer, Boolean> result = new HashMap<>();
+
+        JsonComparator jsonComparator = this.getJsonComparator();
 
         if (Strings.isNullOrEmpty(url1) && Strings.isNullOrEmpty(url2)) {
             System.out.println(String.format("%s equals to %s", url1, url2));
@@ -57,4 +84,6 @@ public class UrlCompareTask implements Callable<HashMap<Integer, Boolean>> {
         result.put(index, isMatch);
         return result;
     }
+
+
 }
