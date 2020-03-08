@@ -62,11 +62,13 @@ public class MultiUrlsCompare {
     }
 
     private UrlCompareTask generateCompareTask(String url1, String url2, int index) {
+        // Thread must inherit callable interface.
         return new UrlCompareTask(index, url1, url2);
     }
 
     private List<Future<HashMap<Integer, Boolean>>> submitCompareTasks(List<UrlCompareTask> tasks) {
         try {
+            // use thread pool to make it run fast
             return executorService
                     .invokeAll(tasks, 10, TimeUnit.MINUTES);
 

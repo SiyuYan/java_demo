@@ -1,4 +1,5 @@
 ## Instruction 
+- Download dependency: `mvn install`
 - For unit test :`mvn test`
 - For api test :`mvn integration-test`
 
