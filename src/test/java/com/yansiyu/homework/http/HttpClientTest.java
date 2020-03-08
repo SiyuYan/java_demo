@@ -1,22 +1,23 @@
 package com.yansiyu.homework.http;
 
-import org.junit.Test;
 
-import static org.junit.Assert.*;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 public class HttpClientTest {
 
+    private HttpClient httpClient = new HttpClient();
 
     @Test
     public void shouldGetCorrectResultWhenUrlValid() {
 
-        String result = HttpClient.get("https://reqres.in/api/users/3");
-        assertNotNull(result);
+        String result = httpClient.get("https://reqres.in/api/users/3");
+        Assert.assertNotNull(result);
     }
 
     @Test
     public void shouldGetCorrectResultWhenIsInvalid() {
-        String result = HttpClient.get("http://reqres");
-        assertNull(result);
+        String result = httpClient.get("http://reqres");
+        Assert.assertNull(result);
     }
 }

@@ -1,7 +1,6 @@
 package com.yansiyu.homework.http;
 
 import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.util.Strings;
 
@@ -10,7 +9,7 @@ import java.io.IOException;
 public class HttpClient {
 
 
-    public static String get(String url) {
+    public String get(String url) {
         if (Strings.isNullOrEmpty(url)) {
             return null;
         }
