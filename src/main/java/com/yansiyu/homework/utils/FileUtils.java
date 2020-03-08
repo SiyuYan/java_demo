@@ -39,13 +39,4 @@ public class FileUtils {
         }
     }
 
-    public static HashMap getFileContent() {
-        Map<Integer, String> content1 = FileUtils.readFile("file1");
-        Map<Integer, String> content2 = FileUtils.readFile("file2");
-        HashMap<Object, Object> content = new HashMap<>();
-        content.put("file1", content1);
-        content.put("file2", content2);
-        return content;
-    }
-
 }

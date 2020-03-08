@@ -84,6 +84,4 @@ public class UrlCompareTask implements Callable<HashMap<Integer, Boolean>> {
         result.put(index, isMatch);
         return result;
     }
-
-
 }
