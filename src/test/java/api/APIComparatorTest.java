@@ -24,7 +24,7 @@ public class APIComparatorTest {
         //when
         assert file1 != null;
         List<Future<HashMap<Integer, Boolean>>> tasks =
-                comparator.compareUrls(file1, file2);
+                comparator.generateTasksByUrls(file1, file2);
 
         //then
         List<HashMap<Integer, Boolean>> results =
@@ -43,7 +43,7 @@ public class APIComparatorTest {
         //when
         assert file1 != null;
         List<Future<HashMap<Integer, Boolean>>> tasks =
-                comparator.compareUrls(file1, file1);
+                comparator.generateTasksByUrls(file1, file1);
 
         //then
         List<HashMap<Integer, Boolean>> results =
@@ -62,7 +62,7 @@ public class APIComparatorTest {
         //when
         assert file3 != null;
         List<Future<HashMap<Integer, Boolean>>> tasks =
-                comparator.compareUrls(file3, file3);
+                comparator.generateTasksByUrls(file3, file3);
 
         //then
         List<HashMap<Integer, Boolean>> results =
@@ -82,7 +82,7 @@ public class APIComparatorTest {
         //when
         assert file4 != null;
         List<Future<HashMap<Integer, Boolean>>> tasks =
-                comparator.compareUrls(file4, file5);
+                comparator.generateTasksByUrls(file4, file5);
 
         //then
         List<HashMap<Integer, Boolean>> results =

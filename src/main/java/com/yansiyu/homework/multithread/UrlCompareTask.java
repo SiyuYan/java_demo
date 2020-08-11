@@ -17,6 +17,8 @@ public class UrlCompareTask implements Callable<HashMap<Integer, Boolean>> {
 
     private JsonComparator jsonComparator;
 
+    private long startTime;
+
     public UrlCompareTask() {
     }
 
@@ -55,6 +57,10 @@ public class UrlCompareTask implements Callable<HashMap<Integer, Boolean>> {
 
     @Override
     public HashMap<Integer, Boolean> call() throws Exception {
+        // add time cost in here
+
+        long startTime = System.currentTimeMillis();
+
         HashMap<Integer, Boolean> result = new HashMap<>();
 
         JsonComparator jsonComparator = this.getJsonComparator();
@@ -76,12 +82,22 @@ public class UrlCompareTask implements Callable<HashMap<Integer, Boolean>> {
 
         boolean isMatch = jsonComparator.compare(result1, result2);
 
+        long endTime = System.currentTimeMillis();
+
         if (isMatch) {
-            System.out.println(String.format("%s equals to %s", url1, url2));
+            System.out.println(String.format("%s equals to %s, time: %s ms", url1, url2,
+                    getTimeDiff(endTime, startTime)));
         } else {
-            System.out.println(String.format("%s not equals to %s", url1, url2));
+            System.out.println(String.format("%s not equals to %s, time: %s ms", url1, url2
+                    , getTimeDiff(endTime, startTime)));
         }
         result.put(index, isMatch);
         return result;
     }
+
+    private long getTimeDiff(long endTime, long startTime) {
+
+        return (endTime - startTime);
+    }
 }
+

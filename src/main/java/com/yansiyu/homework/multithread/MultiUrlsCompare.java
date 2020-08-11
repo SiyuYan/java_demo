@@ -18,7 +18,7 @@ public class MultiUrlsCompare {
         executorService = Executors.newWorkStealingPool(10);
     }
 
-    public List<Future<HashMap<Integer, Boolean>>> compareUrls(
+    public List<Future<HashMap<Integer, Boolean>>> generateTasksByUrls(
             Map<Integer, String> urls1,
             Map<Integer, String> urls2) {
 

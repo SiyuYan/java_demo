@@ -19,14 +19,14 @@ public class JsonComparator implements IComparator<String, String> {
                     .readValue(result1, HashMap.class);
             HashMap resultMap2 = objectMapper
                     .readValue(result2, HashMap.class);
-            return this.compare(resultMap1, resultMap2);
+            return this.compareMap(resultMap1, resultMap2);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    private boolean compare(HashMap resultMap1, HashMap resultMap2) {
+    private boolean compareMap(HashMap resultMap1, HashMap resultMap2) {
         if (resultMap1.size() == 0 && resultMap2.size() == 0) {
             return true;
         }
@@ -51,7 +51,7 @@ public class JsonComparator implements IComparator<String, String> {
             }
 
             if (value1 instanceof HashMap) {
-                return compare((HashMap) value1, (HashMap) value2);
+                return compareMap((HashMap) value1, (HashMap) value2);
             } else if (!value1.equals(value2)) {
                 return false;
             }
